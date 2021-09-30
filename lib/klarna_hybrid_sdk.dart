@@ -13,11 +13,11 @@ class KlarnaHybridSDK {
         .invokeMethod('initialize', <String, dynamic>{'returnUrl': returnUrl});
   }
 
-  static Future<Null> registerEventListener(Function(String) listener) async {
+  static Future<Null> registerEventListener(Function(String?) listener) async {
     await _channel.invokeMethod('registerEventListener');
     _eventChannel
         .receiveBroadcastStream()
-        .map<String>((event) => event)
+        .map<String?>((event) => event)
         .listen(listener);
     return null;
   }

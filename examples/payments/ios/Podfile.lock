@@ -3,9 +3,11 @@ PODS:
   - flutter_klarna_inapp_sdk (0.0.1):
     - Flutter
     - KlarnaMobileSDK (~> 2.0.20)
-  - KlarnaMobileSDK (2.0.20):
-    - KlarnaMobileSDK/xcode-11.5-fat-basic (= 2.0.20)
-  - KlarnaMobileSDK/xcode-11.5-fat-basic (2.0.20)
+  - KlarnaMobileSDK (2.0.44):
+    - KlarnaMobileSDK/full (= 2.0.44)
+  - KlarnaMobileSDK/full (2.0.44):
+    - KlarnaMobileSDK/xcode-12.3-fat-full
+  - KlarnaMobileSDK/xcode-12.3-fat-full (2.0.44)
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
@@ -22,10 +24,10 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_klarna_inapp_sdk/ios"
 
 SPEC CHECKSUMS:
-  Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
   flutter_klarna_inapp_sdk: 751b9f9afbf3d6cd7f9afb6fe50b469d88c25ffe
-  KlarnaMobileSDK: 2f72b76a0650fe047fba0fd65e6782b5bacf1053
+  KlarnaMobileSDK: 34db5e9e4492649c4c30d2955cbbf6ab9bfc316c
 
-PODFILE CHECKSUM: 0ba44ad07df4ab62269dc769727cf0f12b1e453d
+PODFILE CHECKSUM: fe0e1ee7f3d1f7d00b11b474b62dd62134535aea
 
-COCOAPODS: 1.10.1
+COCOAPODS: 1.11.2

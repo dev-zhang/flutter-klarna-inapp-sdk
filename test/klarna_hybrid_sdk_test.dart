@@ -16,7 +16,7 @@ void main() {
   });
 
   test("initialize with valid return url", () async {
-    var res = await KlarnaHybridSDK.initialize("returnUrl");
+    dynamic res = await KlarnaHybridSDK.initialize("returnUrl");
     expect(res, null);
   });
 

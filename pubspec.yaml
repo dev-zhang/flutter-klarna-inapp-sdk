@@ -4,19 +4,24 @@ version: 0.0.1
 homepage: https://github.com/klarna/flutter-klarna-inapp-sdk
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: '>=2.14.0 <3.0.0'
+  flutter: '>=2.5.0'
 
 dependencies:
   flutter:
     sdk: flutter
 
 dev_dependencies:
-  mockito: ^4.0.0
+  mockito: ^5.0.16
   flutter_test:
     sdk: flutter
 
 flutter:
   plugin:
-    androidPackage: com.klarna.inapp.sdk.flutter_klarna_inapp_sdk
-    pluginClass: FlutterKlarnaInappSdk
+    platforms: 
+      android:
+        package: com.klarna.inapp.sdk.flutter_klarna_inapp_sdk
+        pluginClass: FlutterKlarnaInappSdk
+      ios:
+        pluginClass: FlutterKlarnaInappSdk
 

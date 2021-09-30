@@ -10,34 +10,34 @@ const KlarnaPaymentCategorySliceIt = "pay_over_time";
 typedef OnCreatedCallback = void Function(KlarnaPaymentController controller);
 
 typedef OnAuthorizedCallback = void Function(KlarnaPaymentController controller,
-    bool approved, String authToken, bool finalizeRequired);
+    bool approved, String? authToken, bool finalizeRequired);
 typedef OnErrorOccurredCallback = void Function(
     KlarnaPaymentController controller, KlarnaPaymentSDKError error);
 typedef OnFinalizedCallback = void Function(
-    KlarnaPaymentController controller, bool approved, String authToken);
+    KlarnaPaymentController controller, bool approved, String? authToken);
 typedef OnInitializedCallback = void Function(
     KlarnaPaymentController controller);
 typedef OnLoadPaymentReviewCallback = void Function(
     KlarnaPaymentController controller, bool showForm);
 typedef OnLoadedCallback = void Function(KlarnaPaymentController controller);
 typedef OnReauthorizedCallback = void Function(
-    KlarnaPaymentController controller, bool approved, String authToken);
+    KlarnaPaymentController controller, bool approved, String? authToken);
 
 class KlarnaPaymentView extends StatelessWidget {
   final String category;
-  final OnCreatedCallback onCreated;
-  final OnAuthorizedCallback onAuthorized;
-  final OnErrorOccurredCallback onErrorOccurred;
-  final OnFinalizedCallback onFinalized;
-  final OnInitializedCallback onInitialized;
-  final OnLoadPaymentReviewCallback onLoadPaymentReview;
-  final OnLoadedCallback onLoaded;
-  final OnReauthorizedCallback onReauthorized;
-  KlarnaPaymentController _controller;
+  final OnCreatedCallback? onCreated;
+  final OnAuthorizedCallback? onAuthorized;
+  final OnErrorOccurredCallback? onErrorOccurred;
+  final OnFinalizedCallback? onFinalized;
+  final OnInitializedCallback? onInitialized;
+  final OnLoadPaymentReviewCallback? onLoadPaymentReview;
+  final OnLoadedCallback? onLoaded;
+  final OnReauthorizedCallback? onReauthorized;
+  late final KlarnaPaymentController _controller;
 
   KlarnaPaymentView({
-    Key key,
-    @required this.category,
+    Key? key,
+    required this.category,
     this.onCreated,
     this.onAuthorized,
     this.onErrorOccurred,
@@ -49,7 +49,7 @@ class KlarnaPaymentView extends StatelessWidget {
   }) : super(key: key);
 
   KlarnaPaymentView.payNow({
-    Key key,
+    Key? key,
     this.onCreated,
     this.onAuthorized,
     this.onErrorOccurred,
@@ -62,7 +62,7 @@ class KlarnaPaymentView extends StatelessWidget {
         super(key: key);
 
   KlarnaPaymentView.payLater({
-    Key key,
+    Key? key,
     this.onCreated,
     this.onAuthorized,
     this.onErrorOccurred,
@@ -75,7 +75,7 @@ class KlarnaPaymentView extends StatelessWidget {
         super(key: key);
 
   KlarnaPaymentView.sliceIt({
-    Key key,
+    Key? key,
     this.onCreated,
     this.onAuthorized,
     this.onErrorOccurred,
@@ -124,7 +124,7 @@ class KlarnaPaymentView extends StatelessWidget {
     final methodChannel = MethodChannel("plugins/klarna_payment_view_$id");
     methodChannel.setMethodCallHandler(this._callbackHandler);
     final controller = KlarnaPaymentController._(id);
-    onCreated(controller);
+    onCreated!(controller);
 
     this._controller = controller;
   }
@@ -172,17 +172,20 @@ class KlarnaPaymentController {
 
   final MethodChannel _channel;
 
-  Future<void> initialize({String clientToken, String returnUrl}) async {
+  Future<void> initialize({
+    required String clientToken,
+    required String returnUrl,
+  }) async {
     return _channel.invokeMethod(
         'initialize', {"clientToken": clientToken, "returnUrl": returnUrl});
   }
 
-  Future<void> load({String args}) async {
+  Future<void> load({String? args}) async {
     return _channel.invokeMethod('load', {"args": args});
   }
 
   Future<void> authorize(
-      {@required bool autoFinalize, String sessionData}) async {
+      {required bool autoFinalize, String? sessionData}) async {
     return _channel.invokeMethod('authorize',
         {"autoFinalize": autoFinalize, "sessionData": sessionData});
   }

@@ -22,18 +22,18 @@ class KlarnaCallback {
   Function(String) eventCallback;
 
   Stream<String> _eventStream =
-  _eventChannel.receiveBroadcastStream().map<String>((value) => value);
+      _eventChannel.receiveBroadcastStream().map<String>((value) => value);
   Stream<String> _errorStream =
-  _errorChannel.receiveBroadcastStream().map<String>((value) => value);
+      _errorChannel.receiveBroadcastStream().map<String>((value) => value);
 
   KlarnaCallback(this.eventCallback, this.errorCallback);
 
   void onError(String error) {
-    errorCallback?.call(error);
+    errorCallback.call(error);
   }
 
   void onEvent(String event) {
-    eventCallback?.call(event);
+    eventCallback.call(event);
   }
 
   void _register() {
