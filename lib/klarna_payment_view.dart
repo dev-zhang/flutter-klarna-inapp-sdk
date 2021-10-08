@@ -189,4 +189,16 @@ class KlarnaPaymentController {
     return _channel.invokeMethod('authorize',
         {"autoFinalize": autoFinalize, "sessionData": sessionData});
   }
+
+  Future<void> finalize({String? sessionData}) async {
+    return _channel.invokeMethod('finalize', {'sessionData': sessionData});
+  }
+
+  Future<void> reauthorize({String? sessionData}) async {
+    return _channel.invokeMethod('reauthorize', {'sessionData': sessionData});
+  }
+
+  Future<void> loadPaymentReview() async {
+    return _channel.invokeMethod('loadPaymentReview');
+  }
 }

@@ -68,6 +68,12 @@ class PaymentView: NSObject, FlutterPlatformView {
             self.load(call: methodCall, result: result)
         case "authorize":
             self.authorize(call: methodCall, result: result)
+        case "finalize":
+            self.finalize(call: methodCall, result: result)
+        case "reauthorize":
+            self.reauthorize(call: methodCall, result: result)
+        case "loadPaymentReview":
+            self.loadPaymentReview(call: methodCall, result: result)
         default: result(FlutterMethodNotImplemented)
         }
     }
@@ -77,12 +83,14 @@ class PaymentView: NSObject, FlutterPlatformView {
         let clientToken = args["clientToken"] as! String
         let returnUrl = args["returnUrl"] as! String
         paymentView!.initialize(clientToken: clientToken, returnUrl: URL(string: returnUrl)!)
+        result(nil)
     }
     
     func load(call: FlutterMethodCall, result: FlutterResult) -> Void {
         let args = call.arguments as? [String: Any] ?? [:]
         let loadArgs = args["args"] as? String
         paymentView!.load(jsonData: loadArgs)
+        result(nil)
     }
     
     func authorize(call: FlutterMethodCall, result: FlutterResult) -> Void {
@@ -90,6 +98,26 @@ class PaymentView: NSObject, FlutterPlatformView {
         let autoFinalize = args["autoFinalize"] as! Bool
         let sessionData = args["sessionData"] as? String
         paymentView!.authorize(autoFinalize: autoFinalize, jsonData: sessionData)
+        result(nil)
+    }
+    
+    func finalize(call: FlutterMethodCall, result: FlutterResult) -> Void {
+        let args = call.arguments as? [String: Any] ?? [:]
+        let sessionData = args["sessionData"] as? String
+        paymentView!.finalise(jsonData: sessionData)
+        result(nil)
+    }
+    
+    func reauthorize(call: FlutterMethodCall, result: FlutterResult) -> Void {
+        let args = call.arguments as? [String: Any] ?? [:]
+        let sessionData = args["sessionData"] as? String
+        paymentView!.reauthorize(jsonData: sessionData)
+        result(nil)
+    }
+    
+    func loadPaymentReview(call: FlutterMethodCall, result: FlutterResult) -> Void {
+        paymentView!.loadPaymentReview()
+        result(nil)
     }
     
     func createPaymentView(view _view: UIView){
