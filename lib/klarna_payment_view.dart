@@ -90,30 +90,20 @@ class KlarnaPaymentView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (defaultTargetPlatform == TargetPlatform.android) {
-      return Column(
-        children: <Widget>[
-          Container(
-            height: 300,
-            child: AndroidView(
-              viewType: 'plugins/klarna_payment_view',
-              onPlatformViewCreated: _onPlatformViewCreated,
-              creationParamsCodec: const StandardMessageCodec(),
-              creationParams: <String, dynamic>{"category": category},
-            ),
-          ),
-        ],
+      return AndroidView(
+        viewType: 'plugins/klarna_payment_view',
+        onPlatformViewCreated: _onPlatformViewCreated,
+        creationParamsCodec: const StandardMessageCodec(),
+        creationParams: <String, dynamic>{"category": category},
       );
     }
     if (defaultTargetPlatform == TargetPlatform.iOS) {
-      return Container(
-        height: 300,
-        child: UiKitView(
-          viewType: 'plugins/klarna_payment_view',
-          onPlatformViewCreated: _onPlatformViewCreated,
-          layoutDirection: TextDirection.ltr,
-          creationParams: <String, dynamic>{"category": category},
-          creationParamsCodec: const StandardMessageCodec(),
-        ),
+      return UiKitView(
+        viewType: 'plugins/klarna_payment_view',
+        onPlatformViewCreated: _onPlatformViewCreated,
+        layoutDirection: TextDirection.ltr,
+        creationParams: <String, dynamic>{"category": category},
+        creationParamsCodec: const StandardMessageCodec(),
       );
     }
 

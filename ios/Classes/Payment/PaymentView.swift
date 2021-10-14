@@ -47,7 +47,7 @@ class PaymentView: NSObject, FlutterPlatformView {
         self.category = args["category"] as! String
         callbackMethodChannel.invokeMethod("onInitialized", arguments: nil)
         
-        _view = UIView()
+        _view = UIView.init(frame: frame)
         
         super.init()
         
@@ -131,7 +131,9 @@ class PaymentView: NSObject, FlutterPlatformView {
         
         NSLayoutConstraint.activate([
             paymentView!.widthAnchor.constraint(equalTo: _view.widthAnchor),
-            paymentView!.centerXAnchor.constraint(equalTo: _view.centerXAnchor)
+            paymentView!.centerXAnchor.constraint(equalTo: _view.centerXAnchor),
+            paymentView!.topAnchor.constraint(equalTo: _view.topAnchor),
+            paymentView!.bottomAnchor.constraint(equalTo: _view.bottomAnchor)
         ])
     }
 }
@@ -139,6 +141,7 @@ class PaymentView: NSObject, FlutterPlatformView {
 extension PaymentView: KlarnaPaymentEventListener {
     func klarnaResized(paymentView: KlarnaPaymentView, to newHeight: CGFloat) {
         self.klarnaHeightConstraint!.constant = newHeight
+        _view.layoutIfNeeded()
     }
     
     func klarnaInitialized(paymentView: KlarnaPaymentView) {
